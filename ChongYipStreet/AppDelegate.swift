@@ -11,29 +11,28 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
-    var tabbar: UITabBarController!
-
+    var window: UIWindow? = UIWindow(frame: UIScreen.mainScreen().bounds)
+    var tabbar: UITabBarController! = UITabBarController()
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        self.window? = UIWindow()
-        self.window?.frame = UIScreen.mainScreen().bounds
+        
         self.window?.backgroundColor = UIColor.whiteColor()
         
-        createTabBarController()
+        self.createTabBarController()
         
         self.window?.makeKeyAndVisible()
-
+        
         return true
     }
     
     func createTabBarController() {
-        tabbar = UITabBarController()
+        
         window?.rootViewController = tabbar
         
         let classNames = [CYSCommandViewController(), CYSTribuneViewController(), CYSProjectViewController(), CYSMineViewController()]
         let titles = ["推荐", "论坛", "项目", "我"]
-        let normalImageNames = ["", "", "", ""]
-        let selectImageNames = ["", "", "", ""]
+        let normalImageNames = ["light_normal.png", "message_normal.png", "home_normal.png", "user_normal.png"]
+        let selectImageNames = ["light_select.png", "message_select.png", "home_select.png", "user_select.png"]
         for i in 0 ..< classNames.count {
             initTabbarChilderViewControllers(classNames[i], withTitle: titles[i], andNormalImageName: normalImageNames[i], andSelectImageName: selectImageNames[i])
         }
