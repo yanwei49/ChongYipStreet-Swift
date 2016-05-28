@@ -18,15 +18,16 @@ class CYCustomButtons: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    init(buttonSize : CGSize,titles : Array<String>, images : Array<String>, delegate : CYCustomButtonsDelegate?){
-        super.init(frame: CGRect())
-        
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    func setButtonInfo(buttonSize : CGSize,titles : Array<String>, images : Array<String>, delegate : CYCustomButtonsDelegate?){
+
         self.delegate = delegate
         self.initLayoutView(buttonSize,isCustom: true, titles: titles, images: images)
     }
-    init(titles : Array<String>, images : Array<String>, delegate : CYCustomButtonsDelegate?){
-        super.init(frame: CGRect())
-        
+    
+    func setTitleInfo(titles : Array<String>, images : Array<String>, delegate : CYCustomButtonsDelegate?){
         self.delegate = delegate
         self.initLayoutView(CGSize(),isCustom: false, titles: titles, images: images)
     }
@@ -34,7 +35,7 @@ class CYCustomButtons: UIView {
     private func initLayoutView(buttonSize : CGSize,isCustom : Bool,titles : Array<String>, images : Array<String>){
         
         for index in 0 ..< titles.count{
-            
+
             let button = UIButton(type: .Custom)
             self.items.append(button)
             button.tag = index + 1024
@@ -60,7 +61,6 @@ class CYCustomButtons: UIView {
             let textLabelVConstraints =
             [NSLayoutConstraint(item: textLabel, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 0, constant: 20),
             NSLayoutConstraint(item: textLabel, attribute: .Bottom, relatedBy: .Equal, toItem: button, attribute: .Bottom, multiplier: 1, constant: 0)]
-            
             
             button.addConstraints(imageViewHConstraints)
             button.addConstraints(imageViewVConstraints)

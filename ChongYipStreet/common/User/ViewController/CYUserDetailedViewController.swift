@@ -19,6 +19,7 @@ class CYUserDetailedViewController: CYSBaseViewController,CYUserHeadViewDelegate
     let kLeaveCommentIdentifier : String = "LeaveCommentCell"
     
     let tableView : UITableView = UITableView()
+    let segmentedView = CYCustomSegmentedView()
     let headView : CYUserHeadView = CYUserHeadView.initUserHeadView()
     let kSegmentedTitles : Array<String> = [CYNSLocalizedString("介绍"),CYNSLocalizedString("留言区")]
     
@@ -48,30 +49,31 @@ class CYUserDetailedViewController: CYSBaseViewController,CYUserHeadViewDelegate
         
         self.view.addSubview(self.headView)
         self.headView.delegate = self
-        self.headView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let segmentedView = CYCustomSegmentedView(frame: CGRectMake(0, 0, screenWidth(), 40), titles: kSegmentedTitles , delegate: self)
+
         self.view.addSubview(segmentedView)
-        segmentedView.translatesAutoresizingMaskIntoConstraints = false
+        self.segmentedView.setTitleInfos(kSegmentedTitles, delegate : self)
         
         self.view.addSubview(self.tableView)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.tableFooterView = UIView()
-        self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.tableView.registerNib(UINib(nibName: "CYLeaveCommentCell", bundle: nil), forCellReuseIdentifier: kLeaveCommentIdentifier)
         
-        let layoutVConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[headView(120)]-0-[segmentedView(40)]-0-[tableView]-0-|", options: .DirectionLeadingToTrailing, metrics: nil, views: ["headView" : headView,"segmentedView" : segmentedView,"tableView" : tableView])
-        
-        let headViewHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[headView]-0-|", options: .DirectionLeadingToTrailing, metrics: nil, views: ["headView" : headView])
-        let segmentedViewHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[segmentedView]-0-|", options: .DirectionLeadingToTrailing, metrics: nil, views: ["segmentedView" : segmentedView])
-        let tableViewHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[tableView]-0-|", options: .DirectionLeadingToTrailing, metrics: nil, views: ["tableView" : tableView])
-
-        
-        self.view.addConstraints(layoutVConstraints)
-        self.view.addConstraints(headViewHConstraints)
-        self.view.addConstraints(segmentedViewHConstraints)
-        self.view.addConstraints(tableViewHConstraints)
+        self.headView.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(0)
+            make.height.equalTo(120)
+            make.left.right.equalTo(0)
+        }
+        self.segmentedView.snp_makeConstraints { (make) -> Void in
+            make.height.equalTo(40)
+            make.left.right.equalTo(0)
+            make.top.equalTo(self.headView.snp_bottom).offset(0)
+        }
+        self.tableView.snp_makeConstraints { (make) -> Void in
+            make.left.right.equalTo(0)
+            make.bottom.equalTo(0)
+            make.top.equalTo(segmentedView.snp_bottom).offset(0)
+        }
         
         self.tableViewReloadData()
     }

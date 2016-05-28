@@ -8,9 +8,6 @@
 
 import UIKit
 
-
-
-
 class CYSCommandViewController: CYSBaseViewController,CYCustomSegmentedViewDelegate {
     
     let commandService = CYCommandService()
@@ -21,8 +18,11 @@ class CYSCommandViewController: CYSBaseViewController,CYCustomSegmentedViewDeleg
     let kSubTitles : Array<String> = [CYNSLocalizedString("寻找"),CYNSLocalizedString("找方法"),CYNSLocalizedString("找团队"),CYNSLocalizedString("交流圈")]
     let kSubImages : Array<String> = ["cang","cang","cang","cang"]
     
-    
-    var tableView : UITableView = UITableView()
+    let tableView     = UITableView()
+    let headerView    = UIView(frame: CGRectMake(0, 0, screenWidth(), screenWidth() / CGFloat(4)  + 220))
+    let scrollView    = CYScrollView()
+    let customButtons = CYCustomButtons()
+    let segmentedView = CYCustomSegmentedView()
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -42,28 +42,50 @@ class CYSCommandViewController: CYSBaseViewController,CYCustomSegmentedViewDeleg
     }
     
     func initLoadingData(){
+        self.showHeaderView(self.commandService.commandType)
         self.commandService.loadGetCommandData(self.commandService.commandType)
     }
     func initLayoutView(){
         
-        let segmentedView = CYCustomSegmentedView(frame: CGRectMake(0, 0, screenWidth(), 40), titles: kSegmentedTitles , delegate: self)
-        
-        self.view.addSubview(segmentedView)
-        segmentedView.translatesAutoresizingMaskIntoConstraints = false
-        
         self.view.addSubview(self.tableView)
+        self.view.addSubview(self.segmentedView)
+        self.segmentedView.setTitleInfos(kSegmentedTitles, delegate : self)
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.tableView.registerNib(UINib(nibName: "CYCommandCell", bundle: nil), forCellReuseIdentifier: kIdentifier)
         
-        let layoutVConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[segmentedView(40)]-0-[tableView]-0-|", options: .DirectionLeadingToTrailing, metrics: nil, views: ["segmentedView" : segmentedView,"tableView" : tableView])
-        let segmentedViewHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[segmentedView]-0-|", options: .DirectionLeadingToTrailing, metrics: nil, views: ["segmentedView" : segmentedView])
-        let tableViewHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[tableView]-0-|", options: .DirectionLeadingToTrailing, metrics: nil, views: ["tableView" : tableView])
+        self.segmentedView.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(0)
+            make.height.equalTo(40)
+            make.left.right.equalTo(0)
+            
+        }
+        self.tableView.snp_makeConstraints { (make) -> Void in
+            make.left.right.equalTo(0)
+            make.bottom.equalTo(0)
+            make.top.equalTo(segmentedView.snp_bottom).offset(0)
+        }
         
-        self.view.addConstraints(layoutVConstraints)
-        self.view.addConstraints(segmentedViewHConstraints)
-        self.view.addConstraints(tableViewHConstraints)
+        customButtons.setTitleInfo(kSubTitles, images: kSubImages,delegate: self)
+        
+        headerView.addSubview(scrollView)
+        headerView.addSubview(customButtons)
+        
+        scrollView.snp_makeConstraints(closure: { (make) -> Void in
+            make.top.equalTo(0)
+            make.height.equalTo(200)
+            make.left.right.equalTo(0)
+        })
+        customButtons.snp_makeConstraints(closure: { (make) -> Void in
+            make.left.right.equalTo(0)
+            make.bottom.equalTo(0)
+            make.top.equalTo(scrollView.snp_bottom)
+        })
+        scrollView.checkBlock = {(checkIndex) in
+            debugPrint(checkIndex)
+        }
+        scrollView.setImages(["http://y3.ifengimg.com/dee5ac7c19652025/2015/0520/rdn_555c3157d29e7.jpg","http://y3.ifengimg.com/dee5ac7c19652025/2015/0520/rdn_555c3157d29e7.jpg","http://y3.ifengimg.com/dee5ac7c19652025/2015/0520/rdn_555c3157d29e7.jpg","http://y3.ifengimg.com/dee5ac7c19652025/2015/0520/rdn_555c3157d29e7.jpg"])
         
         self.tableViewReloadData()
     }
@@ -121,11 +143,13 @@ class CYSCommandViewController: CYSBaseViewController,CYCustomSegmentedViewDeleg
     //MARK:- CYCustomSegmentedViewDelegate
     func customSegmentedView(segmentedView: CYCustomSegmentedView, selectIndex: Int) {
         
-        if selectIndex != self.commandService.commandType.rawValue, let commandType = CommandType(rawValue: selectIndex){
-            
-            self.commandService.commandType = commandType
-            self.commandService.loadGetCommandData(commandType)
+        if selectIndex == self.commandService.commandType.rawValue{
+            return
         }
+        
+        self.commandService.commandType = CommandType(rawValue: selectIndex) ?? CommandType.All
+        self.showHeaderView(self.commandService.commandType)
+        self.commandService.loadGetCommandData(self.commandService.commandType)
     }
     
 }
@@ -133,6 +157,16 @@ class CYSCommandViewController: CYSBaseViewController,CYCustomSegmentedViewDeleg
 
 //MARK:- TableViewDelegate
 extension CYSCommandViewController : UITableViewDelegate,UITableViewDataSource,CYCustomButtonsDelegate{
+    
+    func showHeaderView(commandType : CommandType){
+        if commandType == .All {
+            //UIImage(named: "201510296120828674")
+            self.tableView.tableHeaderView = headerView
+        }
+        else{
+            self.tableView.tableHeaderView = nil
+        }
+    }
     
     func tableViewReloadData(){
         if self.commandService.getCommandDatasCount() > 0{
@@ -142,32 +176,6 @@ extension CYSCommandViewController : UITableViewDelegate,UITableViewDataSource,C
             self.tableView.separatorStyle = .SingleLine
         }
         
-        if self.commandService.commandType == .All {
-            let headerView = UIView(frame: CGRectMake(0, 0, screenWidth(), screenWidth() / CGFloat(kSubTitles.count)  + 220))
-            
-            var imageView = headerView.viewWithTag(1024) as? UIImageView
-            var customButtons = headerView.viewWithTag(2048) as? CYCustomButtons
-            
-            if imageView == nil{
-                imageView = UIImageView()
-                imageView?.image = UIImage(named: "201510296120828674")
-                headerView.addSubview(imageView ?? UIView())
-            }
-            if customButtons == nil{
-                
-                customButtons = CYCustomButtons(titles: kSubTitles, images: kSubImages,delegate: self)
-                customButtons?.tag = 2048
-                headerView.addSubview(customButtons ?? UIView())
-            }
-            
-            imageView?.frame = CGRectMake(0, 0, screenWidth(), 200)
-            customButtons?.frame = CGRectMake(0, 200, screenWidth(), customButtons?.getHeight() ?? 0)
-            
-            self.tableView.tableHeaderView = headerView
-        }
-        else{
-            self.tableView.tableHeaderView = nil
-        }
         self.tableView.reloadData()
     }
     

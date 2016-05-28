@@ -12,22 +12,22 @@ class CYSearchViewController: CYSBaseViewController,CYCustomSegmentedViewDelegat
 
     let kSegmentedTitles : Array<String> = [CYNSLocalizedString("帖子"),CYNSLocalizedString("用户")]
     
+    let segmentedView = CYCustomSegmentedView()
     let searchController : UISearchController = UISearchController(searchResultsController: nil)
     
     enum SearchState{
         case Ordinary
         case Search
     }
+    
     var searchState : SearchState = .Ordinary
     var searchDatas : Array<String> = Array()
+    
     
     deinit{
         self.searchController.view.removeFromSuperview()
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.translucent = false
@@ -59,20 +59,15 @@ class CYSearchViewController: CYSBaseViewController,CYCustomSegmentedViewDelegat
     
     func initLayoutView(){
         
-        let segmentedView = CYCustomSegmentedView(frame: CGRectMake(0, 0, screenWidth(), 40), titles: kSegmentedTitles , delegate: self)
+        self.view.addSubview(self.segmentedView)
+        self.segmentedView.setTitleInfos(kSegmentedTitles, delegate : self)
         
-        self.view.addSubview(segmentedView)
-        segmentedView.translatesAutoresizingMaskIntoConstraints = false
-        
-
-        let segmentedViewHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[segmentedView]-0-|", options: .DirectionLeadingToTrailing, metrics: nil, views: ["segmentedView" : segmentedView])
-        let segmentedViewVConstraints =
-        [NSLayoutConstraint(item: segmentedView, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1.0, constant: 0),
-         NSLayoutConstraint(item: segmentedView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 40)]
-        
-        self.view.addConstraints(segmentedViewHConstraints)
-        self.view.addConstraints(segmentedViewVConstraints)
-
+        self.segmentedView.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(0)
+            make.height.equalTo(40)
+            make.left.right.equalTo(0)
+            
+        }
     }
     
     //MARK:- CYCustomSegmentedViewDelegate

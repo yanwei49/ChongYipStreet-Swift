@@ -55,6 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func createLogin() {
+        createTabBarController()
+        return
         let loginVC = CYSLoginViewController()
         window?.rootViewController = loginVC
     }

@@ -15,8 +15,8 @@ class CYMyPostViewController: CYSBaseViewController,CYCustomSegmentedViewDelegat
     let kSegmentedTitles : Array<String> = [CYNSLocalizedString("回帖"),CYNSLocalizedString("发布"),CYNSLocalizedString("关注")]
     
     
-    var tableView : UITableView = UITableView()
-    var segmentedView   = CYCustomSegmentedView()
+    let tableView : UITableView = UITableView()
+    let segmentedView = CYCustomSegmentedView()
     
     
     override func viewWillAppear(animated: Bool) {
@@ -41,24 +41,24 @@ class CYMyPostViewController: CYSBaseViewController,CYCustomSegmentedViewDelegat
     }
     func initLayoutView(){
         
-        
-        self.segmentedView = CYCustomSegmentedView(frame: CGRectMake(0, 0, screenWidth(), 40), titles: kSegmentedTitles , delegate: self)
-        self.view.addSubview(self.segmentedView)
-        self.segmentedView.translatesAutoresizingMaskIntoConstraints = false
-        
         self.view.addSubview(self.tableView)
+        self.view.addSubview(self.segmentedView)
+        self.segmentedView.setTitleInfos(kSegmentedTitles, delegate : self)
+
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.tableView.registerNib(UINib(nibName: "CYTribuneCell", bundle: nil), forCellReuseIdentifier: kIdentifier)
         
-        let layoutVConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[segmentedView(40)]-0-[tableView]-0-|", options: .DirectionLeadingToTrailing, metrics: nil, views: ["segmentedView" : segmentedView,"tableView" : tableView])
-        let segmentedViewHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[segmentedView]-0-|", options: .DirectionLeadingToTrailing, metrics: nil, views: ["segmentedView" : segmentedView])
-        let tableViewHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[tableView]-0-|", options: .DirectionLeadingToTrailing, metrics: nil, views: ["tableView" : tableView])
-        
-        self.view.addConstraints(layoutVConstraints)
-        self.view.addConstraints(segmentedViewHConstraints)
-        self.view.addConstraints(tableViewHConstraints)
+        self.segmentedView.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(0)
+            make.left.right.equalTo(0)
+            
+        }
+        self.tableView.snp_makeConstraints { (make) -> Void in
+            make.left.right.equalTo(0)
+            make.bottom.equalTo(0)
+            make.top.equalTo(segmentedView.snp_bottom).offset(0)
+        }
         
         self.tableViewReloadData()
     }

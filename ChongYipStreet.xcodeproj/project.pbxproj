@@ -196,6 +196,11 @@
 		740F097B1C64B4AE00C0C61A /* CYSBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740F096A1C64B4AE00C0C61A /* CYSBaseViewController.swift */; };
 		740F097C1C64B4AE00C0C61A /* CYSNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740F096B1C64B4AE00C0C61A /* CYSNavigationController.swift */; };
 		740F097D1C64B4AE00C0C61A /* CYSTribuneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740F09701C64B4AE00C0C61A /* CYSTribuneViewController.swift */; };
+		7486C5971CDDE3A400B3EA02 /* CYScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7486C5961CDDE3A400B3EA02 /* CYScrollView.swift */; };
+		7486C5991CDDF0A300B3EA02 /* CYPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7486C5981CDDF0A300B3EA02 /* CYPost.swift */; };
+		7486C59B1CDDF19600B3EA02 /* CYArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7486C59A1CDDF19600B3EA02 /* CYArticle.swift */; };
+		7486C59D1CDDF22F00B3EA02 /* CYScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7486C59C1CDDF22F00B3EA02 /* CYScheme.swift */; };
+		7486C59F1CDDF26600B3EA02 /* CYProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7486C59E1CDDF26600B3EA02 /* CYProject.swift */; };
 		74E9F7711C81660400BA0960 /* CYLeaveCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E9F76F1C81660400BA0960 /* CYLeaveCommentCell.swift */; };
 		74E9F7721C81660400BA0960 /* CYLeaveCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74E9F7701C81660400BA0960 /* CYLeaveCommentCell.xib */; };
 		74E9F7751C8174A300BA0960 /* CYUserNameCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E9F7731C8174A300BA0960 /* CYUserNameCardViewController.swift */; };
@@ -423,6 +428,11 @@
 		740F096A1C64B4AE00C0C61A /* CYSBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYSBaseViewController.swift; sourceTree = "<group>"; };
 		740F096B1C64B4AE00C0C61A /* CYSNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYSNavigationController.swift; sourceTree = "<group>"; };
 		740F09701C64B4AE00C0C61A /* CYSTribuneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYSTribuneViewController.swift; sourceTree = "<group>"; };
+		7486C5961CDDE3A400B3EA02 /* CYScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYScrollView.swift; sourceTree = "<group>"; };
+		7486C5981CDDF0A300B3EA02 /* CYPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CYPost.swift; path = ChongYipStreet/command/view/CYPost.swift; sourceTree = SOURCE_ROOT; };
+		7486C59A1CDDF19600B3EA02 /* CYArticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CYArticle.swift; path = ChongYipStreet/command/view/CYArticle.swift; sourceTree = SOURCE_ROOT; };
+		7486C59C1CDDF22F00B3EA02 /* CYScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CYScheme.swift; path = ChongYipStreet/command/view/CYScheme.swift; sourceTree = SOURCE_ROOT; };
+		7486C59E1CDDF26600B3EA02 /* CYProject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CYProject.swift; path = ChongYipStreet/command/view/CYProject.swift; sourceTree = SOURCE_ROOT; };
 		74E9F76F1C81660400BA0960 /* CYLeaveCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYLeaveCommentCell.swift; sourceTree = "<group>"; };
 		74E9F7701C81660400BA0960 /* CYLeaveCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CYLeaveCommentCell.xib; sourceTree = "<group>"; };
 		74E9F7731C8174A300BA0960 /* CYUserNameCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYUserNameCardViewController.swift; sourceTree = "<group>"; };
@@ -793,6 +803,10 @@
 		740F09521C64B4AE00C0C61A /* model */ = {
 			isa = PBXGroup;
 			children = (
+				7486C5981CDDF0A300B3EA02 /* CYPost.swift */,
+				7486C59A1CDDF19600B3EA02 /* CYArticle.swift */,
+				7486C59C1CDDF22F00B3EA02 /* CYScheme.swift */,
+				7486C59E1CDDF26600B3EA02 /* CYProject.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -800,10 +814,11 @@
 		740F09531C64B4AE00C0C61A /* view */ = {
 			isa = PBXGroup;
 			children = (
-				56F868DB1C7AA3EF001BDB7B /* CYCommandCell.swift */,
-				56F868DC1C7AA3EF001BDB7B /* CYCommandCell.xib */,
+				7486C5961CDDE3A400B3EA02 /* CYScrollView.swift */,
 				56F868DD1C7AA3EF001BDB7B /* CYCustomButtons.swift */,
 				56F868DE1C7AA3EF001BDB7B /* CYCustomSegmentedView.swift */,
+				56F868DB1C7AA3EF001BDB7B /* CYCommandCell.swift */,
+				56F868DC1C7AA3EF001BDB7B /* CYCommandCell.xib */,
 				56F868DF1C7AA3EF001BDB7B /* CYProgramCell.swift */,
 				56F868E01C7AA3EF001BDB7B /* CYProgramCell.xib */,
 				56F868E11C7AA3EF001BDB7B /* CYProjectCell.swift */,
@@ -1307,6 +1322,7 @@
 			files = (
 				771627F81C7CA9690059CCBE /* CYSBackgroundDataOperation.swift in Sources */,
 				740F09781C64B4AE00C0C61A /* CYSUserModel.swift in Sources */,
+				7486C5991CDDF0A300B3EA02 /* CYPost.swift in Sources */,
 				740F09711C64B4AE00C0C61A /* CYSCommandViewController.swift in Sources */,
 				56F869361C7AABDF001BDB7B /* CYSSubjectSecondTableViewCell.swift in Sources */,
 				74F50D2E1C8191CC00923842 /* CYMyPostViewController.swift in Sources */,
@@ -1322,6 +1338,7 @@
 				740F097B1C64B4AE00C0C61A /* CYSBaseViewController.swift in Sources */,
 				56F868EA1C7AA3EF001BDB7B /* CYCustomSegmentedView.swift in Sources */,
 				74E9F7791C817C0600BA0960 /* CYCardTextFieldCell.swift in Sources */,
+				7486C59B1CDDF19600B3EA02 /* CYArticle.swift in Sources */,
 				56F869241C7AA6F6001BDB7B /* CYSMineFirstTableviewCell.swift in Sources */,
 				74E9F7711C81660400BA0960 /* CYLeaveCommentCell.swift in Sources */,
 				56F869341C7AAB8F001BDB7B /* CYSHumanCateView.swift in Sources */,
@@ -1332,6 +1349,7 @@
 				56F8693C1C7AAC62001BDB7B /* CYSFunctionViewController.swift in Sources */,
 				740F097A1C64B4AE00C0C61A /* CYSProjectViewController.swift in Sources */,
 				74E9F77E1C817C2600BA0960 /* CYCardTextViewCell.swift in Sources */,
+				7486C59F1CDDF26600B3EA02 /* CYProject.swift in Sources */,
 				56F869131C7AA571001BDB7B /* CYUserHomeViewController.swift in Sources */,
 				56E3D9781C7DAE5900EFB3CB /* CYSBackgroundUserTableOperationViewController.swift in Sources */,
 				56F8690E1C7AA571001BDB7B /* CYUserHeadView.swift in Sources */,
@@ -1340,6 +1358,7 @@
 				56F868E71C7AA3EF001BDB7B /* CYCommandCell.swift in Sources */,
 				56F8691C1C7AA658001BDB7B /* CYSMineViewController.swift in Sources */,
 				56A274881C83D9DD00BD71F6 /* CYSMinePlanViewController.swift in Sources */,
+				7486C59D1CDDF22F00B3EA02 /* CYScheme.swift in Sources */,
 				56F868FA1C7AA41B001BDB7B /* CYTeamViewController.swift in Sources */,
 				56F869251C7AA6F6001BDB7B /* CYSMineMeansCollectionViewCell.swift in Sources */,
 				740F09731C64B4AE00C0C61A /* CYSDataBaseManager.swift in Sources */,
@@ -1356,6 +1375,7 @@
 				56F8691A1C7AA624001BDB7B /* CYSUserInfosViewController.swift in Sources */,
 				56F8693A1C7AAC16001BDB7B /* CYSProject2TableHeadView.swift in Sources */,
 				740F09761C64B4AE00C0C61A /* ConstParams.swift in Sources */,
+				7486C5971CDDE3A400B3EA02 /* CYScrollView.swift in Sources */,
 				740F09721C64B4AE00C0C61A /* CYSHttpManager.swift in Sources */,
 				740F09771C64B4AE00C0C61A /* CYSLoginViewController.swift in Sources */,
 				740F097C1C64B4AE00C0C61A /* CYSNavigationController.swift in Sources */,

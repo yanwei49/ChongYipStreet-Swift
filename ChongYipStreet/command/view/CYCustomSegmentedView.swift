@@ -15,23 +15,16 @@ protocol CYCustomSegmentedViewDelegate : NSObjectProtocol{
 class CYCustomSegmentedView: UIView {
 
     var selectIndex : Int = 0
-    var selectView : UIView = UIView()
+    private var selectView : UIView = UIView()
     
-    var titles : Array<String> = Array()
-    var titleItems : Array<UIButton> = Array()
+    private var titles : Array<String> = Array()
+    private var titleItems : Array<UIButton> = Array()
     
     var delegate : CYCustomSegmentedViewDelegate? = nil
     
     var selectCenterXConstraint : NSLayoutConstraint? = nil
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    init(){
-        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-    }
-    init(frame : CGRect, titles : Array<String>, delegate : CYCustomSegmentedViewDelegate){
-        super.init(frame: frame)
+    func setTitleInfos( titles : Array<String>, delegate : CYCustomSegmentedViewDelegate){
         self.titles = titles
         self.delegate = delegate
         self.initLayoutTitles()
